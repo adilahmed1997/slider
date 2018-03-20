@@ -25,6 +25,7 @@ public class GUI {
         jFrame.setSize(320,475);
         jPanel.setLayout(new GridLayout(3,4));
         jFrame.add(jPanel);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         createButtons();
     }
