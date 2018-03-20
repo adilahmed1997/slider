@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class GUI {
     JFrame jFrame;
     ArrayList<ImageIcon> icons;
-    ArrayList<JButton> buttons;
+    JButton[][] buttons;
     JPanel jPanel;
 
     ButtonManager buttonManager;
@@ -16,6 +16,14 @@ public class GUI {
     {
     create();
 
+    }
+
+    public ArrayList<ImageIcon> getIcons() {
+        return icons;
+    }
+
+    public JButton[][] getButtons() {
+        return buttons;
     }
 
     private void create()
@@ -29,7 +37,7 @@ public class GUI {
         jFrame.add(jPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ButtonManager buttonManager = new ButtonManager(jPanel, jFrame);
+        ButtonManager buttonManager = new ButtonManager(jPanel, jFrame, this);
 
         buttonManager.createButtons(icons, buttons);
 
