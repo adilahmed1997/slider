@@ -67,7 +67,6 @@ public class ButtonManager implements ActionListener {
                             currentButton.setName(currentGrid[x][y]);
                         }
                     } else {
-                        // if(currentButton.getName().equals("bart0")){
                         Icon tempIcon = newButton.getIcon();
                         newButton.setIcon(currentButton.getIcon());
 
@@ -77,7 +76,6 @@ public class ButtonManager implements ActionListener {
                         newButton.setName(currentGrid[newX][newY]);
                         currentButton.setIcon(tempIcon);
                         currentButton.setName(currentGrid[x][y]);
-                        //}
                     }
                 }
             }
