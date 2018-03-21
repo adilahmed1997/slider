@@ -6,15 +6,14 @@ import java.util.ArrayList;
 
 public class GUI {
     JFrame jFrame;
-    ArrayList<ImageIcon> icons;
-    JButton[][] buttons;
+    ArrayList<ImageIcon> icons = new ArrayList<>();
+    JButton[][] buttons = new JButton[3][4];
     JPanel jPanel;
 
     ButtonManager buttonManager;
 
-    public GUI()
-    {
-    create();
+    public GUI() {
+        create();
 
     }
 
@@ -26,14 +25,13 @@ public class GUI {
         return buttons;
     }
 
-    private void create()
-    {
+    private void create() {
         jFrame = new JFrame(); // Create jFrame blank window
         jPanel = new JPanel();
         jFrame.setVisible(true);
         jFrame.setTitle("Slider puzzle game");
-        jFrame.setSize(320,475);
-        jPanel.setLayout(new GridLayout(3,4));
+        jFrame.setSize(320, 475);
+        jPanel.setLayout(new GridLayout(3, 4));
         jFrame.add(jPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
