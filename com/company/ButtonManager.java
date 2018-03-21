@@ -49,6 +49,7 @@ public class ButtonManager implements ActionListener {
 
 
     private void moveTile(int x, int y, int newX, int newY, boolean bool) {
+        gui.incrementPoints();
         System.out.println("moving " + x + ", " + y + "to " + newX + ", " + newY);
         JButton currentButton = gui.getButtons()[x][y];
 
@@ -65,6 +66,24 @@ public class ButtonManager implements ActionListener {
                             newButton.setName(currentGrid[newX][newY]);
                             currentButton.setIcon(new ImageIcon("src/com/bart0.jpg"));
                             currentButton.setName(currentGrid[x][y]);
+
+                            int i = 0;
+                            for (int j = 0; j < 3; j++) {
+                                for (int k = 0; k < 4; k++) {
+                                    if (currentGrid[j][k].equals(completeGrid[j][k])) {
+                                        i++;
+                                    }
+
+                                }
+
+                            }
+                            System.out.println(i);
+                            if (i == 12) {
+                                gui.setNameRetriever();
+                                gui.getJframe().setVisible(false);
+                                jFrame.dispose();
+                            }
+                            gui.getJframe().setTitle("Score: " + gui.getPoints());
                         }
                     } else {
                         Icon tempIcon = newButton.getIcon();
@@ -80,21 +99,9 @@ public class ButtonManager implements ActionListener {
                 }
             }
         }
-        int i = 0;
-        for (int j = 0; j < 3; j++) {
-            for (int k = 0; k < 4; k++) {
-                if (currentGrid[j][k].equals(completeGrid[j][k])) {
-                    i++;
-                }
 
-            }
-
-        }
-        System.out.println(i);
-        if(i==12) {
-            System.out.println("finished");
-        }
     }
+
 
     public void createButtons(ArrayList<ImageIcon> icons, JButton[][] buttons) {
 
@@ -118,35 +125,36 @@ public class ButtonManager implements ActionListener {
         jFrame.pack();
     }
 
-    public void randomize(JButton[][] buttons){
+    public void randomize(JButton[][] buttons) {
         System.out.println("randomizing");
         Random rand = new Random();
-        for (int i=0; i<15;i++) {
+        for (int i = 0; i < 15; i++) {
             int n = rand.nextInt(4) + 1;
-            switch(n) {
+            switch (n) {
                 case 1:
-                    swapGrey(1,0);
+                    swapGrey(1, 0);
                     break;
                 case 2:
-                    swapGrey(-1,0);
+                    swapGrey(-1, 0);
                     break;
                 case 3:
-                    swapGrey(0,1);
+                    swapGrey(0, 1);
                     break;
                 case 4:
-                    swapGrey(0,-1);
+                    swapGrey(0, -1);
                     break;
             }
         }
+        gui.setPoints(0);
 
     }
 
-    private void swapGrey(int xDir, int yDir){
+    private void swapGrey(int xDir, int yDir) {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 4; y++) {
-                if(gui.getButtons()[x][y].getName().equals("bart0")){
+                if (gui.getButtons()[x][y].getName().equals("bart0")) {
                     System.out.println("swapp");
-                    moveTile(x,y,x+xDir,y+yDir, false);
+                    moveTile(x, y, x + xDir, y + yDir, false);
 
                 }
 

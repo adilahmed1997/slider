@@ -2,10 +2,7 @@ package com.company;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class GUI {
@@ -24,34 +21,48 @@ public class GUI {
 
         String line = new String();
 
-        highScores =  new ArrayList<String>();
+        highScores = new ArrayList<String>();
 
         FileReader fileReader = new FileReader("src/com/scores.txt");
 
 
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        while((line = bufferedReader.readLine()) != null) {
+        while ((line = bufferedReader.readLine()) != null) {
             System.out.println(line);
             highScores.add(line);
         }
-
 
 
         bufferedReader.close();
 
     }
 
+    public JFrame getJframe() {
+        return jFrame;
+    }
+
+
+    public NameRetriever getNameRetriever() {
+        return nameRetriever;
+    }
+
+    public void setNameRetriever() {
+        nameRetriever = new NameRetriever(this);
+    }
 
     public JButton[][] getButtons() {
         return buttons;
     }
 
 
-    public void incrementPoints(){
+    public void incrementPoints() {
         points++;
     }
 
+    public int getPoints(){
+        return points;
+    }
     private void create() {
         jFrame = new JFrame(); // Create jFrame blank window
         jPanel = new JPanel();
@@ -63,18 +74,78 @@ public class GUI {
         jFrame.add(jPanel);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        points=0;
+        points = 0;
         ButtonManager buttonManager = new ButtonManager(jPanel, jFrame, this);
 
         buttonManager.createButtons(icons, buttons);
 
     }
 
-    public void getScoreName(){
-        nameRetriever = new NameRetriever();
+    public ArrayList<String> getHighScores() {
+        return highScores;
     }
-    public void displayHighscore(){
 
+    public void setScoreName(String name) {
+        this.name = name;
+        try {
+            evaluateHighscore();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayHighscore() {
+
+    }
+
+    public void setHighscore(){
+        HighScoreGUI highScoreGUI = new HighScoreGUI(this);
+    }
+    public void evaluateHighscore() throws IOException {
+        System.out.println("evaluating highscore");
+        File myFile = new File("src/com/scores.txt");
+        FileWriter fileWriter = new FileWriter(myFile, false); // true to append
+
+        if (shouldOverWrite()) {
+
+        }
+        for (String s : highScores) {
+            String score = s.split(" ")[1];
+
+            System.out.println(name + points);
+            if (points > Integer.parseInt(score)) {
+                highScores.remove(s);
+                s = name + " " + points;
+                highScores.add(s);
+                System.out.println("writigng: " + s);
+                break;
+
+            }
+        }
+
+        for (String x : highScores) {
+            System.out.println(x);
+            fileWriter.write(x + System.lineSeparator());
+
+
+        }
+
+        fileWriter.close();
+    }
+
+    public void setPoints(int i){
+        points = i;
+    }
+    private boolean shouldOverWrite() {
+        for (String s : highScores) {
+            String score = s.split(" ")[1];
+
+            System.out.println(name + points);
+            if (points > Integer.parseInt(score)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
