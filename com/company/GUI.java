@@ -5,12 +5,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GUI {
-    JFrame jFrame;
-    ArrayList<ImageIcon> icons = new ArrayList<>();
-    JButton[][] buttons = new JButton[3][4];
-    JPanel jPanel;
+    private JFrame jFrame;
+    private ArrayList<ImageIcon> icons = new ArrayList<>();
+    private JButton[][] buttons = new JButton[3][4];
+    private JPanel jPanel;
 
-    ButtonManager buttonManager;
+    private ButtonManager buttonManager;
 
     public GUI() {
         create();
